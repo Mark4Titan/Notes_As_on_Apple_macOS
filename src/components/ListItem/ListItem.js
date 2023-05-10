@@ -15,7 +15,7 @@ import Icons, { StyDatabasIn, StyDatabasOut } from "../ico/Icons";
 const ListItem = ({ items, closeCart, openCart, openItem, stateInput }) => {
   // console.log(moment().format('DD/MM/YYYY  HH:mm'))
   const [item, setItems] = useState(items);
-  const myRef = useRef(null);
+  let myRef = useRef(null);
 
   useEffect(() => {
     setItems(() => {
@@ -37,22 +37,22 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateInput }) => {
     return openCart(data);
   };
 
-  const contentPat = [150, 385, 5, 35];
-  const titlePat = [100, 385, 10, 35];
+  const contentPat = [220, 480, 5, 35];
+  const titlePat = [220, 480, 10, 35];
 
   let contentWi = useWindowSize(myRef, contentPat);
   let titlWi = useWindowSize(myRef, titlePat);
 
   return (
     <DivList>
-      <UlListContent>
+      <UlListContent ref={myRef}>
         {item.map((elem) => (
           <LiItems
             key={elem.id}
             SColor={openItem.id === undefined ? true : openItem.id === elem.id}
             onClick={() => manager(elem)}
           >
-            <DivBasis ref={myRef}>
+            <DivBasis >
               <DivTitle>{elem.title.substr(0, titlWi.inW)}</DivTitle>
               <div>{elem.content.substr(0, contentWi.inW)}...</div>
               <div>{elem.data.substr(0, 10)}</div>
