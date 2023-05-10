@@ -13,19 +13,19 @@ import { HiDatabase } from "react-icons/hi";
 import styled from "@emotion/styled";
 
 const ICO = {
-  edit: { i: RiBallPenLine, text: "edit" },
-  burgrtClose: { i: RiLayout5Line, text: "hide" },
-  burgrtOpen: { i: RiLayoutTopLine, text: "show" },
-  add: { i: RiFileAddLine, text: "add" },
-  del: { i: RiFileForbidLine, text: "remove" },
+  edit: { i: RiBallPenLine, text: "Edit" },
+  burgrtClose: { i: RiLayout5Line, text: "Hide" },
+  burgrtOpen: { i: RiLayoutTopLine, text: "Show" },
+  add: { i: RiFileAddLine, text: "Add" },
+  del: { i: RiFileForbidLine, text: "Remove" },
 
-  settings: { i: RiSoundModuleLine, text: "settings" },
+  settings: { i: RiSoundModuleLine, text: "Settings" },
 
-  cloud: { i: RiSoundcloudLine, text: "quintadb" },
-  Databas: { i: HiDatabase, text: "indexeddb" },
+  cloud: { i: RiSoundcloudLine, text: "Quintadb" },
+  Databas: { i: HiDatabase, text: "Indexeddb" },
 
-  rec: { i: RiSave3Fill, text: "record" },
-  search: { i: BiSearch, text: "search" },
+  rec: { i: RiSave3Fill, text: "Record" },
+  search: { i: BiSearch, text: "Search" },
 };
 
 const Icons = ({ ico, C }) => {
