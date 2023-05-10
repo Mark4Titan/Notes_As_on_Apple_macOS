@@ -6,12 +6,13 @@ export default function useWindowSize(ref, patter=[100, 1000, 0, 10]) {
     height: undefined,
     range: patter,
     inW: null,
+    refs: ref
   });
 
   useEffect(() => {
     const handleResize = () => { 
-      const width= Math.round(ref.current.getBoundingClientRect().width)
-      const height= Math.round(ref.current.getBoundingClientRect().height)
+      const width= Math.round(size.refs.current?.getBoundingClientRect().width)
+      const height= Math.round(size.refs.current?.getBoundingClientRect().height)
       const result1 = Math.min(((width - size.range[0]) / (size.range[1] - size.range[0])) * 100, 100);
     const result2 = (result1/100)*(size.range[3] - size.range[2]) + size.range[2];   
       setSize((prevState) => ({
@@ -27,6 +28,6 @@ export default function useWindowSize(ref, patter=[100, 1000, 0, 10]) {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [ref, size.range]);
+  }, [size.range, size.refs]);
   return size;
 }

@@ -14,7 +14,7 @@ const Sidebar = ({ burger, setBurger, isW, setStateInput, stateInput }) => {
           )}
         </li>
 
-        {(!isW || burger) && (
+        {(!isW || !burger) && (
           <>
             <li>
               <Icons ico="add" C={StyBut} />
@@ -24,14 +24,11 @@ const Sidebar = ({ burger, setBurger, isW, setStateInput, stateInput }) => {
             </li>
             <li>
               <Icons ico="edit" C={StyBut} />
-            </li>
-            <li>
-              <Icons ico="settings" C={StyBut} />
-            </li>
+            </li>            
           </>
         )}
       </UlSidebar>
-      {(!isW || !burger) && (
+      {(!isW || burger) && (
         <SearchBox setStateInput={setStateInput} stateInput={stateInput} />
       )}
     </SidMain>

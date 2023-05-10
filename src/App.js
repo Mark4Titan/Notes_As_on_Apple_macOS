@@ -50,7 +50,9 @@ function App() {
               stateInput={stateInput}
             />
           )}
-          {(!burger || !isW) && <Workspace items={items} openItem={openItem} />}
+          {(!burger || !isW) && 
+          <Workspace items={items} openItem={openItem} />
+          }
         </DivWork>
       </DivContent>
     </DivMain>

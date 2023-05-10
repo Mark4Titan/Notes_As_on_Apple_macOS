@@ -18,10 +18,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    
+    "startR": "node scripts/start.js",
+    "buildR": "node scripts/build.js",
+
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prebuild": "react-scripts build",
-    "deploy": "react-scripts build gh-pages -d build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
