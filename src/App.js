@@ -12,7 +12,7 @@ function App() {
   const [burger, setBurger] = useState(false);
   const [stateInput, setStateInput] = useState("");
 
-  
+  // додай placeholder
 
   let isW = WiWidth(520);
 
