@@ -6,26 +6,65 @@ import {
   InputTitle,
   TContent,
 } from "./Workspace.styled";
+// import moment from "moment/moment";
 
-const Workspace = ({ openItem }) => {
+const Workspace = ({ openItem, editNote, addNote }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const [ID, setID] = useState(null);
+  // const momSS = () => parseInt(moment().format("ss"));
+
   useEffect(() => {
-    if (openItem.content === undefined) {
+
+    if (openItem.id !== ID) {
+      setID(openItem.id);
       setContent("");
       setTitle("");
-    } else {
-      setContent(openItem.content);
-      setTitle(openItem.title);
     }
-  }, [openItem]);
+
+
+    if (openItem.id === undefined) {
+      setContent("");
+      setTitle("");
+      setID(null);
+    } else {      
+        openItem.content && setContent(openItem.content);
+        openItem.title && setTitle(openItem.title);
+      
+    }
+  }, [ID, openItem]);
+
+  const texstChange = (E, val, blockChange) => {
+    E(val);
+    const newOpenItem = { ...openItem, [blockChange]: val };
+    if (openItem.id === undefined) addNote(newOpenItem);
+    startAutoSave(newOpenItem);
+  };
+
+  const startAutoSave = (newOpenItem) => {
+    let intervalId;
+
+    intervalId = setInterval(() => {
+      editNote(newOpenItem);
+      clearInterval(intervalId);
+    }, 1500);
+  };
 
   return (
     <DivWork>
       <DivContent>
-        <H2Data>{openItem.data}</H2Data>
-        <InputTitle value={title} onChange={(e) => setTitle(e.target.value)} />
-        <TContent value={content} onChange={(e) => setContent(e.target.value)}>
+        <H2Data>
+          {openItem.data === undefined ? "Quick note" : openItem.data}
+        </H2Data>
+
+        <InputTitle
+          value={title}
+          onChange={(e) => texstChange(setTitle, e.target.value, "title")}
+        />
+        <TContent
+          value={content}
+          onChange={(e) => texstChange(setContent, e.target.value, "content")}
+        >
           {openItem.content}
         </TContent>
       </DivContent>

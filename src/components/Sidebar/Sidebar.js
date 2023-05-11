@@ -1,30 +1,44 @@
-import Icons, { StyBut } from "../ico/Icons";
+import Icons from "../ico/Icons";
 import SearchBox from "./SearchBox/SearchBox";
 import { UlSidebar, SidMain } from "./Sidebar.styled";
 
-const Sidebar = ({ burger, setBurger, isW, setStateInput, stateInput }) => {
+const Sidebar = ({
+  isOpenItem,
+  burger,
+  setBurger,
+  isW,
+  setStateInput,
+  stateInput,
+  DelNote,
+  CloneNote,
+  addNote,
+}) => {
   return (
     <SidMain>
       <UlSidebar>
         <li onClick={() => setBurger(!burger)}>
           {burger ? (
-            <Icons ico="burgrtClose" C={StyBut} />
+            <Icons ico="burgrtClose" C="StyBut" />
           ) : (
-            <Icons ico="burgrtOpen" C={StyBut} />
+            <Icons ico="burgrtOpen" C="StyBut" />
           )}
         </li>
 
         {(!isW || !burger) && (
           <>
-            <li>
-              <Icons ico="add" C={StyBut} />
+            <li onClick={() => addNote()}>
+              <Icons ico="add" C="StyBut" />
+            </li>
+
+            <li onClick={() => CloneNote()}>
+              <Icons ico="clone" C="StyBut" isOpenItem={isOpenItem} />
+            </li>
+            <li onClick={() => DelNote()}>
+              <Icons ico="del" C="StyBut" isOpenItem={isOpenItem} />
             </li>
             <li>
-              <Icons ico="del" C={StyBut} />
+              <Icons ico="edit" C="StyBut" isOpenItem={isOpenItem} />
             </li>
-            <li>
-              <Icons ico="edit" C={StyBut} />
-            </li>            
           </>
         )}
       </UlSidebar>

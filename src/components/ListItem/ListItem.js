@@ -9,8 +9,8 @@ import {
   UlListContent,
   DivTitle,
 } from "./ListItem.styled";
-import useWindowSize from "../../Hucs/useWindowSize";
-import Icons, { StyDatabasIn, StyDatabasOut } from "../ico/Icons";
+import useWindowSize from "../../Hooks/useWindowSize";
+import Icons from "../ico/Icons";
 
 const ListItem = ({ items, closeCart, openCart, openItem, stateInput }) => {
   // console.log(moment().format('DD/MM/YYYY  HH:mm'))
@@ -52,24 +52,24 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateInput }) => {
             SColor={openItem.id === undefined ? true : openItem.id === elem.id}
             onClick={() => manager(elem)}
           >
-            <DivBasis >
-              <DivTitle>{elem.title.substr(0, titlWi.inW)}</DivTitle>
-              <div>{elem.content.substr(0, contentWi.inW)}...</div>
-              <div>{elem.data.substr(0, 10)}</div>
+            <DivBasis>
+              <DivTitle>{elem.title?.substr(0, titlWi.inW)}</DivTitle>
+              <div>{elem.content?.substr(0, contentWi.inW)}...</div>
+              <div>{elem.data?.substr(0, 10)}</div>
             </DivBasis>
             <DivDB>
               <div>
-                {elem.db.indexeddb ? (
-                  <Icons ico="Databas" C={StyDatabasIn} />
+                {elem.indexeddb !== undefined && elem.indexeddb ? (
+                  <Icons ico="Databas" C="StyDatabasIn" />
                 ) : (
-                  <Icons ico="Databas" C={StyDatabasOut} />
+                  <Icons ico="Databas" C="StyDatabasOut" />
                 )}
               </div>
               <div>
-                {elem.db.quintadb ? (
-                  <Icons ico="cloud" C={StyDatabasIn} />
+                {elem.quintadb !== undefined && elem.quintadb ? (
+                  <Icons ico="cloud" C="StyDatabasIn" />
                 ) : (
-                  <Icons ico="cloud" C={StyDatabasOut} />
+                  <Icons ico="cloud" C="StyDatabasOut" />
                 )}
               </div>
             </DivDB>

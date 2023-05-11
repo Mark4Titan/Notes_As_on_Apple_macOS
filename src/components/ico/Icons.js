@@ -7,6 +7,7 @@ import {
   RiSoundModuleLine,
   RiSave3Fill,
   RiLayoutTopLine,
+  RiFileCodeLine
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { HiDatabase } from "react-icons/hi";
@@ -18,6 +19,7 @@ const ICO = {
   burgrtOpen: { i: RiLayoutTopLine, text: "Show" },
   add: { i: RiFileAddLine, text: "Add" },
   del: { i: RiFileForbidLine, text: "Remove" },
+  clone: { i: RiFileCodeLine, text: "Сlone" },
 
   settings: { i: RiSoundModuleLine, text: "Settings" },
 
@@ -28,10 +30,13 @@ const ICO = {
   search: { i: BiSearch, text: "Search" },
 };
 
-const Icons = ({ ico, C }) => {
+
+
+const Icons = ({ ico, C, ...props }) => {
   const text = ICO[ico].text;
   const Ico = ICO[ico].i();
-  return <C data-text={text}>{Ico}</C>;
+  const Component = transforms[C]
+  return <Component data-text={text} {...props}>{Ico}</Component>;
 };
 
 export default Icons;
@@ -39,13 +44,13 @@ export default Icons;
 //
 
 const StyBefore = `  
-
+  
   &::before{
     top: -25px;    
     position: absolute;
     border-radius: 5px;
     background-color: #fafaf8;
-    
+    font-size: 12px;
     border-color: #d6d6d6;
     content: " ";
     box-shadow: 0px 3px 8px 0px #4f4f4f5e;
@@ -57,7 +62,7 @@ const StyBefore = `
     transition: all 0.1s ease-out;
   }
   &:hover::before{
-    top: -45px;
+    top: -35px;
     opacity: 1;
     width: auto;
     padding: 5px;
@@ -85,11 +90,14 @@ export const StyBut = styled.div`
     height: 20px;
   }
   &:hover {
-    background-color: #ffffffeb;
+    ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) ? 'background-color: #d6d6d6' :   'background-color: #ffffffeb'};
+   
   }
   &:active {
-    background-color: #ffffff8c;
+    
+    ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) ? 'background-color: #d6d6d6' :   'background-color: #ffffff8c'};
   }
+  ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) && 'background-color: #d6d6d6' };
   ${StyBefore}
 `;
 export const StyIco = styled.div`
@@ -103,7 +111,7 @@ export const StyIco = styled.div`
     width: 20px;
     height: 20px;
   }
-  ${StyBefore}
+  ${StyBefore}  
 `;
 export const StyDatabasIn = styled.div`
   position: relative;
@@ -118,6 +126,7 @@ export const StyDatabasIn = styled.div`
     color: darkgreen;
   }
   ${StyBefore}
+  
 `;
 export const StyDatabasOut = styled.div`
   position: relative;
@@ -132,4 +141,11 @@ export const StyDatabasOut = styled.div`
     color: brown;
   }
   ${StyBefore}
+  
 `;
+const transforms = {
+  StyBut:StyBut,
+  StyIco:StyIco,
+  StyDatabasIn: StyDatabasIn,
+  StyDatabasOut:StyDatabasOut,
+}
