@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Icons, { StyIco } from "../../ico/Icons";
+
 import { DivSearch, SearchInput } from "./SearchBox.styled";
+import Icons from "../../ico/Icons";
 
 const SearchBox = ({ stateInput, setStateInput}) => {
  
@@ -17,7 +17,7 @@ const SearchBox = ({ stateInput, setStateInput}) => {
         onChange={(e) => ValueIn(e.target.value)}
         value={stateInput}
       />
-      <Icons ico="search" C={StyIco} />
+      <Icons ico="search" C='StyIco' />
     </DivSearch>
   );
 };

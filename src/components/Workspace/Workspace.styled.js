@@ -34,8 +34,10 @@ export const InputTitle = styled.input`
   letter-spacing: 1px;
   font-family: inherit;
   outline: none;
-  border: none;
+  border-radius: 5px;
+  
   background-color: transparent; 
+  ${P=>P.value.length>0 ? 'border: none': 'border: solid 1px #d6d6d6'};
 `;
 export const TContent = styled.textarea`
   display: grid;
@@ -46,10 +48,10 @@ export const TContent = styled.textarea`
   letter-spacing: 1px;
   font-family: inherit;
   resize: none;
-  border: none;
   background-color: transparent; 
   max-width: 100%;
   max-height: 100%;
   outline: none;
-
+  border-radius: 5px;
+  ${P=>P.value.length>0 ? 'border: none': 'border: solid 1px #d6d6d6'};
 `;
