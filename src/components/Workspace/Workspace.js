@@ -54,7 +54,7 @@ const Workspace = ({ openItem, editNote, addNote }) => {
     <DivWork>
       <DivContent>
         <H2Data>
-          {openItem.data === undefined ? "Quick note" : openItem.data}
+          {openItem.created === undefined ? "Quick note" : openItem.created}
         </H2Data>
 
         <InputTitle

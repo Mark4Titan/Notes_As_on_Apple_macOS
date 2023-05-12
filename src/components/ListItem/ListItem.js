@@ -55,7 +55,7 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateInput }) => {
             <DivBasis>
               <DivTitle>{elem.title?.substr(0, titlWi.inW)}</DivTitle>
               <div>{elem.content?.substr(0, contentWi.inW)}...</div>
-              <div>{elem.data?.substr(0, 10)}</div>
+              <div>{elem.created?.substr(0, 10)}</div>
             </DivBasis>
             <DivDB>
               <div>
