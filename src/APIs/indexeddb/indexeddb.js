@@ -1,9 +1,9 @@
+import initialState  from "../initialState.json";
 import { nanoid } from "nanoid";
-import { initialState } from "../initialState";
 import moment from "moment/moment";
 
 function ApiIndexedDB() {
-  const dbName = "dataNotedb";
+  const dbName = "QuickNotedb";
   let db;
 
   function connectToDB() {
@@ -16,18 +16,18 @@ function ApiIndexedDB() {
 
       request.onsuccess = (event) => {
         db = event.target.result;
-        console.log("Connected to indexedDB");
+        // console.log("Connected to indexedDB");
         resolve();
       };
 
       request.onupgradeneeded = (event) => {
         db = event.target.result;
         const objStore = db.createObjectStore(dbName, { keyPath: "id" });
-        objStore.createIndex("data", "data", { unique: false });
+        objStore.createIndex("created", "created", { unique: false });
         objStore.createIndex("title", "title", { unique: false });
         objStore.createIndex("content", "content", { unique: false });
         objStore.createIndex("id", "id", { unique: true });
-        initialState.forEach((item) => objStore.add({ ...item, id: nanoid() }));
+        initialState.forEach((item) => objStore.add(item));
       };
     });
   }
@@ -55,7 +55,7 @@ function ApiIndexedDB() {
     await connectToDB();
     const newCard = {
       ...record,
-      data: moment().format("DD.MM.YYYY  (HH:mm)"),
+      created: moment().format("DD.MM.YYYY  (HH:mm)"),
       id: nanoid(),
     };
     await new Promise((resolve, reject) => {
@@ -109,6 +109,7 @@ function ApiIndexedDB() {
     const newCard = {
       ...record,
       id: nanoid(),
+      created: moment().format("DD.MM.YYYY  (HH:mm)"),
       title: (record.title += " - Copy!"),
     };
     await new Promise((resolve, reject) => {
