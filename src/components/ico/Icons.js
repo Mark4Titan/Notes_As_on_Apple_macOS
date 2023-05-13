@@ -7,7 +7,7 @@ import {
   RiSoundModuleLine,
   RiSave3Fill,
   RiLayoutTopLine,
-  RiFileCodeLine
+  RiFileCodeLine,
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { HiDatabase } from "react-icons/hi";
@@ -30,13 +30,16 @@ const ICO = {
   search: { i: BiSearch, text: "Search" },
 };
 
-
-
 const Icons = ({ ico, C, ...props }) => {
   const text = ICO[ico].text;
   const Ico = ICO[ico].i();
-  const Component = transforms[C]
-  return <Component data-text={text} {...props}>{Ico}</Component>;
+  const Component = transforms[C];
+  // console.log(props)
+  return (
+    <Component data-text={text} {...props}>
+      {Ico}
+    </Component>
+  );
 };
 
 export default Icons;
@@ -90,16 +93,22 @@ export const StyBut = styled.div`
     height: 20px;
   }
   &:hover {
-    ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) ? 'background-color: #d6d6d6' :   'background-color: #ffffffeb'};
-   
+    ${(P) =>
+      P.isOpenItem !== undefined && !P.isOpenItem
+        ? "background-color: #d6d6d6"
+        : "background-color: #ffffffeb"};
   }
   &:active {
-    
-    ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) ? 'background-color: #d6d6d6' :   'background-color: #ffffff8c'};
+    ${(P) =>
+      P.isOpenItem !== undefined && !P.isOpenItem
+        ? "background-color: #d6d6d6"
+        : "background-color: #ffffff8c"};
   }
-  ${P=>(P.isOpenItem !== undefined && !P.isOpenItem) && 'background-color: #d6d6d6' };
+  ${(P) =>
+    P.isOpenItem !== undefined && !P.isOpenItem && "background-color: #d6d6d6"};
   ${StyBefore}
 `;
+
 export const StyIco = styled.div`
   position: absolute;
   display: flex;
@@ -111,7 +120,39 @@ export const StyIco = styled.div`
     width: 20px;
     height: 20px;
   }
-  ${StyBefore}  
+  ${StyBefore}
+`;
+
+export const ButDatabas = styled.div`
+  position: relative;
+  width: 48px;
+  height: 26px;
+  border: solid 1px #d6d6d6;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  & :last-child {
+    width: 20px;
+    height: 20px;
+  }
+  & :last-child {
+    ${(P) =>
+      P.varColor ? "color:  darkgreen" : "color: brown"};
+  }
+  &:hover {
+    background-color: #fff;
+    box-shadow: 0px 3px 5px 0px #4f4f4f5e;
+  }
+  &:active {
+    background-color: #f3f3f3;
+    box-shadow: none;
+  }
+
+  ${StyBefore}
 `;
 export const StyDatabasIn = styled.div`
   position: relative;
@@ -126,7 +167,6 @@ export const StyDatabasIn = styled.div`
     color: darkgreen;
   }
   ${StyBefore}
-  
 `;
 export const StyDatabasOut = styled.div`
   position: relative;
@@ -141,11 +181,11 @@ export const StyDatabasOut = styled.div`
     color: brown;
   }
   ${StyBefore}
-  
 `;
 const transforms = {
-  StyBut:StyBut,
-  StyIco:StyIco,
+  StyBut: StyBut,
+  StyIco: StyIco,
   StyDatabasIn: StyDatabasIn,
-  StyDatabasOut:StyDatabasOut,
-}
+  StyDatabasOut: StyDatabasOut,
+  ButDatabas: ButDatabas,
+};

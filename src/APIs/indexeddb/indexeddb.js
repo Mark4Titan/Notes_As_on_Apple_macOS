@@ -26,6 +26,9 @@ function ApiIndexedDB() {
         objStore.createIndex("created", "created", { unique: false });
         objStore.createIndex("title", "title", { unique: false });
         objStore.createIndex("content", "content", { unique: false });
+        objStore.createIndex("idQuintadb", "idQuintadb", { unique: false });
+        objStore.createIndex("indexeddb", "indexeddb", { unique: false });
+        objStore.createIndex("quintadb", "quintadb", { unique: false });
         objStore.createIndex("id", "id", { unique: true });
         initialState.forEach((item) => objStore.add(item));
       };

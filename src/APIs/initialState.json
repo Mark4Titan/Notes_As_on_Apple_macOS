@@ -1,6 +1,8 @@
 [
   {
     "id": "CpkuNHWCJjFKOONm51UXT",
+    "indexeddb": true,
+    "quintadb": false,
     "created": "9.05.2023  (23:59)",
     "title": "Lorem Ipsum",
     "content":
@@ -8,6 +10,8 @@
   },
   {
     "id": "DSJ5-8KkFF18B5m6pRc3n",
+    "indexeddb": true,
+    "quintadb": false,
     "created": "10.05.2023  (00:46)",
     "title": "text of the",
     "content":
@@ -15,6 +19,8 @@
   },
   {
     "id": "R8te814eluUHCtiMFAquL",
+    "indexeddb": true,
+    "quintadb": false,
     "created": "10.05.2023  (00:46)",
     "title": "simply dummy",
     "content":
@@ -22,12 +28,16 @@
   },
   {
     "id": "VmKsNjEf7g0WYwYMUlS8i",
+    "indexeddb": true,
+    "quintadb": false,
     "created": "10.05.2023  (00:46)",
     "title": " industry. Lorem",
     "content": "and typesetting industry. Lorem Ipsum has be."
   },
   {
     "id": "jICeJiacKTQIHMfGoxw7h",
+    "indexeddb": true,
+    "quintadb": false,
     "created": "10.05.2023  (00:46)",
     "title": "of the printing an",
     "content":
