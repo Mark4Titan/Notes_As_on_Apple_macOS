@@ -14,15 +14,28 @@ export const DivContent = styled.div`
   grid-template: 30px 35px 1fr/1fr;
   grid-gap: 10px;
 `;
-export const H2Data = styled.h2`
+export const H2Wrap = styled.div`
   display: grid;
-  justify-items: center;
+  grid-template: 1fr/50px 50px 1fr;
   align-items: center;
   justify-content: center;
   color: #00000066;
   font-size: 17px;
   letter-spacing: 1px;
   font-family: inherit;
+  grid-gap: 5px;
+  justify-items: center;
+`;
+export const H2Data = styled.h2`
+  grid-column: 3/4;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: start;
+  color: #00000066;
+  font-size: 17px;
+  letter-spacing: 1px;
 `;
 export const InputTitle = styled.input`
   display: grid;
@@ -35,9 +48,9 @@ export const InputTitle = styled.input`
   font-family: inherit;
   outline: none;
   border-radius: 5px;
-  
-  background-color: transparent; 
-  ${P=>P.value.length>0 ? 'border: none': 'border: solid 1px #d6d6d6'};
+
+  background-color: transparent;
+  ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
 `;
 export const TContent = styled.textarea`
   display: grid;
@@ -48,10 +61,10 @@ export const TContent = styled.textarea`
   letter-spacing: 1px;
   font-family: inherit;
   resize: none;
-  background-color: transparent; 
+  background-color: transparent;
   max-width: 100%;
   max-height: 100%;
   outline: none;
   border-radius: 5px;
-  ${P=>P.value.length>0 ? 'border: none': 'border: solid 1px #d6d6d6'};
+  ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
 `;

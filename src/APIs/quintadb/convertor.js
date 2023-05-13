@@ -1,9 +1,7 @@
-import { getAllRecords } from "./quintadb";
+import { fieldKeysDB } from "./fieldKeysDB";
+import { addRecord, deleteRecord, editRecord, getAllRecords } from "./quintadb";
 
-const tCreated = `${process.env.REACT_APP_TRANSLATOR_CREATED}`;
-const tTitle = `${process.env.REACT_APP_TRANSLATOR_TITLE}`;
-const tContent = `${process.env.REACT_APP_TRANSLATOR_CONTENT}`;
-const tId = `${process.env.REACT_APP_TRANSLATOR_IDITEM}`;
+const { tCreated, tTitle, tContent, tId, tQuintadb, tIndexeddb } = fieldKeysDB;
 
 function Convertor() {
   async function getAll() {
@@ -16,14 +14,48 @@ function Convertor() {
         title: el.values[tTitle],
         content: el.values[tContent],
         id: el.values[tId],
-        quintadb: true,
+        idQuintadb: el.id,
+        quintadb: el.values[tQuintadb] === "false" ? false : true,
+        indexeddb: el.values[tIndexeddb] === "false" ? false : true,
       });
     }
 
-    return {datd:elements, status: records.status};
+    // return { datd: [], status: 200 };
+    return { datd: elements, status: records.status };
   }
 
-  return { getAll };
+
+// 
+  async function delRecord(item) {    
+    const records = await deleteRecord(item);    
+    const newAtem = {
+      ...item,
+      quintadb: records.status === 200 ? false : true,
+    };
+
+    return { data: newAtem, status: records.status };
+  }
+
+
+// 
+  async function changeRecord(item) {   
+    const records = await editRecord(item);   
+    return { data: records, status: records.status };
+  }
+
+  async function cloneRecord(item) {   
+    const records = await addRecord(item);   
+    return { data: records, status: records.status };
+  }
+  async function addRecord(item) {   
+    const records = await addRecord(item);   
+    return { data: records, status: records.status };
+  }
+
+  return { getAll, delRecord, changeRecord, cloneRecord, addRecord };
 }
+
+
+
 
 export default Convertor;

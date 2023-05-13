@@ -53,6 +53,7 @@ export const DivBasis = styled.div`
 export const DivTitle = styled.h3`
   color: dimgrey;
   grid-column: 1/3;
+  display: grid;  
 `;
 
 export const DivDB = styled.div`
