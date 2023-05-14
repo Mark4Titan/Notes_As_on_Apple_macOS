@@ -1,10 +1,11 @@
-import initialState  from "../initialState.json";
+import initialState from "./initialState.json";
 import { nanoid } from "nanoid";
 import moment from "moment/moment";
 
 function ApiIndexedDB() {
   const dbName = "QuickNotedb";
   let db;
+  let status;
 
   function connectToDB() {
     return new Promise((resolve, reject) => {
@@ -16,7 +17,8 @@ function ApiIndexedDB() {
 
       request.onsuccess = (event) => {
         db = event.target.result;
-        // console.log("Connected to indexedDB");
+        status = event.target.result ? 200 : 404;
+        // console.log("Connected to indexedDB", event);
         resolve();
       };
 
@@ -26,9 +28,6 @@ function ApiIndexedDB() {
         objStore.createIndex("created", "created", { unique: false });
         objStore.createIndex("title", "title", { unique: false });
         objStore.createIndex("content", "content", { unique: false });
-        objStore.createIndex("idQuintadb", "idQuintadb", { unique: false });
-        objStore.createIndex("indexeddb", "indexeddb", { unique: false });
-        objStore.createIndex("quintadb", "quintadb", { unique: false });
         objStore.createIndex("id", "id", { unique: true });
         initialState.forEach((item) => objStore.add(item));
       };
@@ -41,6 +40,7 @@ function ApiIndexedDB() {
     const objectStore = transaction.objectStore(dbName);
     const data = await new Promise((resolve, reject) => {
       const request = objectStore.getAll();
+      // console.log(" async function getData", request)
       request.onerror = (event) => {
         reject(event.target.error);
       };
@@ -48,10 +48,14 @@ function ApiIndexedDB() {
         resolve(request.result);
       };
     });
+    const ReData = data.map((el) => ({
+      ...el,
+      indexeddb: true,
+      quintadb: false,
+    }));
+    const masage = status === 200 ? "" : "No connect to indexeddb databases";
 
-    const ReData = data.map((el) => ({ ...el, indexeddb: true }));
-
-    return { data: ReData };
+    return { data: ReData, status, masage };
   }
 
   async function addRecord(record) {
@@ -72,7 +76,13 @@ function ApiIndexedDB() {
         resolve(request.result);
       };
     });
-    return { data: { ...newCard, indexeddb: true } };
+    const masage =
+      status === 200 ? "" : "Failed to create new record in indexeddb";
+    return {
+      data: { ...newCard, indexeddb: true, quintadb: false },
+      status,
+      masage,
+    };
   }
 
   async function deleteRecord(record) {
@@ -88,37 +98,22 @@ function ApiIndexedDB() {
         resolve(request.result);
       };
     });
-    return { data: record };
+    const masage = status === 200 ? "" : "Failed to delete record";
+    return { data: record, status, masage };
   }
 
   async function editRecord(record) {
-    await connectToDB();
-    await new Promise((resolve, reject) => {
-      const transaction = db.transaction([dbName], "readwrite");
-      const objectStore = transaction.objectStore(dbName);
-      const request = objectStore.put(record);
-      request.onerror = (event) => {
-        reject(event.target.error);
-      };
-      request.onsuccess = () => {
-        resolve(request.result);
-      };
-    });
-    return { data: record };
-  }
-
-  async function cloneRecord(record) {
-    await connectToDB();
-    const newCard = {
-      ...record,
-      id: nanoid(),
-      created: moment().format("DD.MM.YYYY  (HH:mm)"),
-      title: (record.title += " - Copy!"),
+    const newRec = {
+      created: record.created,
+      title: record.title,
+      content: record.content,
+      id: record.id,
     };
+    await connectToDB();
     await new Promise((resolve, reject) => {
       const transaction = db.transaction([dbName], "readwrite");
       const objectStore = transaction.objectStore(dbName);
-      const request = objectStore.add(newCard);
+      const request = objectStore.put(newRec);
       request.onerror = (event) => {
         reject(event.target.error);
       };
@@ -126,11 +121,12 @@ function ApiIndexedDB() {
         resolve(request.result);
       };
     });
-    return { data: { ...newCard, indexeddb: true } };
-  }
-
-  function handleDBError(event) {
-    console.error(`IndexedDB error: ${event.target.error}`);
+    const masage =
+      status === 200
+        ? ""
+        : "Failed to connect Failed to make indexeddb from mine";
+   
+    return { data: record, status, masage };
   }
 
   return {
@@ -139,8 +135,6 @@ function ApiIndexedDB() {
     addRecord,
     deleteRecord,
     editRecord,
-    cloneRecord,
-    handleDBError,
   };
 }
 

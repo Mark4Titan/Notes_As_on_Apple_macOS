@@ -5,22 +5,22 @@ export const SidMain = styled.div`
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: grid;
-  justify-items: center;
-  -webkit-box-align: center;
-  align-items: center;
   justify-content: center;
-  align-items: center;
-  justify-content: center;
-  grid-template: 1fr/ 1fr 0.3fr;
+  grid-template: 1fr/1fr;
   width: 100%;
   height: 100%;
   background-color: #d6d6d6;
-  justify-items: start;
+  align-items: center;
 `;
-export const UlSidebar = styled.ul`  
+export const UlSidebar = styled.ul`
   margin: 0 10px 0 10px;
   display: grid;
   grid-gap: 10px;
   grid-template: 1fr/ 1fr 1fr 1fr 1fr 1fr;
 `;
-
+export const DivPanel = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template: 1fr/ 1fr;
+  justify-items: end;
+`;

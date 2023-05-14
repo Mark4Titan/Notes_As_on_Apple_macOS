@@ -1,83 +1,20 @@
 {
     "records": [
         {
-            "id": "aRWPtdPc1ji57cKXa_WRjl",
-            "app_id": "alWOldV2LdLlFcGHeCfmof",
-            "entity_id": "dcL0n5b8jolOBdJYZcVGLZ",
+            "id": "cDWR1biwffWOCMW6ldOSo-",
+            "app_id": "dcPhPsW5HdKykfWQdcNCkv",
+            "entity_id": "dcUSksldLhW7hcTmoJENnK",
             "values": {
-                "a1WR0Jx19fezy9qxJcM8kY": "CpkuN555545ON345345UXT",
-                "a4W4XYm8nhoOoYW5hdULnh": "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-                "cFW4VdVSngW6xdNKPYW4GV": "true",
-                "ddOrhcHKPdG6CbW5tdJsj4": "Lorem Ipsum",
-                "ddPwtdRdfcPyk1W5hcOIeu": "19.05.2023  (23:59)",
-                "ddSNmzW7rcLi_cQ2LYnJr2": "false"
+                "buWR7cRrzdWP7cK8krv09J": "Title",
+                "dcRvtdP8jilOo5WPbxfSou": "14.05.2023  (13:59)",
+                "dcSCoUW7bdH4kgW4HSFGOo": "Content"
             },
             "rel_values": null,
             "subform_values": {},
             "approved": false,
-            "created_at": "2023-05-13T00:11:51.000Z",
-            "updated_at": "2023-05-13T00:11:51.000Z",
-            "added_by": "Уляна Савчук",
-            "user_ids": null
-        },
-        {
-            "id": "chWQpdJwTcSO9OumkbomoZ",
-            "app_id": "alWOldV2LdLlFcGHeCfmof",
-            "entity_id": "dcL0n5b8jolOBdJYZcVGLZ",
-            "values": {
-                "a1WR0Jx19fezy9qxJcM8kY": "CpkuN555545ONm51UXT",
-                "a4W4XYm8nhoOoYW5hdULnh": "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-                "cFW4VdVSngW6xdNKPYW4GV": "true",
-                "ddOrhcHKPdG6CbW5tdJsj4": "Lorem Ipsum",
-                "ddPwtdRdfcPyk1W5hcOIeu": "19.05.2023  (23:59)",
-                "ddSNmzW7rcLi_cQ2LYnJr2": "false"
-            },
-            "rel_values": null,
-            "subform_values": {},
-            "approved": false,
-            "created_at": "2023-05-13T00:11:48.000Z",
-            "updated_at": "2023-05-13T00:11:48.000Z",
-            "added_by": "Уляна Савчук",
-            "user_ids": null
-        },
-        {
-            "id": "dcN0JcOmjaW4VdUSo2W5Ki",
-            "app_id": "alWOldV2LdLlFcGHeCfmof",
-            "entity_id": "dcL0n5b8jolOBdJYZcVGLZ",
-            "values": {
-                "a1WR0Jx19fezy9qxJcM8kY": "CpkuNHWCJjF545ONm51UXT",
-                "a4W4XYm8nhoOoYW5hdULnh": "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-                "cFW4VdVSngW6xdNKPYW4GV": "true",
-                "ddOrhcHKPdG6CbW5tdJsj4": "Lorem Ipsum",
-                "ddPwtdRdfcPyk1W5hcOIeu": "19.05.2023  (23:59)",
-                "ddSNmzW7rcLi_cQ2LYnJr2": "false"
-            },
-            "rel_values": null,
-            "subform_values": {},
-            "approved": false,
-            "created_at": "2023-05-13T00:10:47.000Z",
-            "updated_at": "2023-05-13T00:10:47.000Z",
-            "added_by": "Уляна Савчук",
-            "user_ids": null
-        },
-        {
-            "id": "bVi9Lr8ser7yzXLGaboDKI",
-            "app_id": "alWOldV2LdLlFcGHeCfmof",
-            "entity_id": "dcL0n5b8jolOBdJYZcVGLZ",
-            "values": {
-                "a1WR0Jx19fezy9qxJcM8kY": "CpkuNHWCJjF6786ONm51UXT",
-                "a4W4XYm8nhoOoYW5hdULnh": "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-                "cFW4VdVSngW6xdNKPYW4GV": "true",
-                "ddOrhcHKPdG6CbW5tdJsj4": "Lorem Ipsum",
-                "ddPwtdRdfcPyk1W5hcOIeu": "9.05.2023  (23:59)",
-                "ddSNmzW7rcLi_cQ2LYnJr2": "false"
-            },
-            "rel_values": null,
-            "subform_values": {},
-            "approved": false,
-            "created_at": "2023-05-13T02:02:21.000Z",
-            "updated_at": "2023-05-13T02:02:21.000Z",
-            "added_by": "Уляна Савчук",
+            "created_at": "2023-05-14T11:16:56.000Z",
+            "updated_at": "2023-05-14T11:16:56.000Z",
+            "added_by": "Василь Андрейчук",
             "user_ids": null
         }
     ]

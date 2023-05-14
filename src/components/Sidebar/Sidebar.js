@@ -1,18 +1,25 @@
 import Icons from "../ico/Icons";
 import SearchBox from "./SearchBox/SearchBox";
-import { UlSidebar, SidMain } from "./Sidebar.styled";
+import { UlSidebar, SidMain, DivPanel } from "./Sidebar.styled";
 
 const Sidebar = ({
   isOpenItem,
   burger,
   setBurger,
   isW,
-  setStateInput,
-  stateInput,
-  DelNote,
-  CloneNote,
+  setStateSearch,
+  stateSearch,
   addNote,
+  showModal,
+  setEditItem,
+  editItem,
 }) => {
+  const isEdit = () => {
+    isOpenItem && setEditItem((privState) => !privState);
+  };
+  const isDel = () => {
+    isOpenItem && showModal();
+  };
   return (
     <SidMain>
       <UlSidebar>
@@ -29,22 +36,29 @@ const Sidebar = ({
             <li onClick={() => addNote()}>
               <Icons ico="add" C="StyBut" />
             </li>
-
-            <li onClick={() => CloneNote()}>
-              <Icons ico="clone" C="StyBut" isOpenItem={isOpenItem} />
-            </li>
-            <li onClick={() => DelNote()}>
+            <li onClick={() => isDel()}>
               <Icons ico="del" C="StyBut" isOpenItem={isOpenItem} />
             </li>
-            <li>
-              <Icons ico="edit" C="StyBut" isOpenItem={isOpenItem} />
+
+            <li onClick={() => isEdit()}>
+              <Icons
+                ico="edit"
+                C="StyBut"
+                isOpenItem={isOpenItem}
+                winEdit={editItem && isOpenItem}
+              />
             </li>
           </>
         )}
+        {(!isW || burger) && (
+          <DivPanel>
+            <SearchBox
+              setStateSearch={setStateSearch}
+              stateSearch={stateSearch}
+            />
+          </DivPanel>
+        )}
       </UlSidebar>
-      {(!isW || burger) && (
-        <SearchBox setStateInput={setStateInput} stateInput={stateInput} />
-      )}
     </SidMain>
   );
 };

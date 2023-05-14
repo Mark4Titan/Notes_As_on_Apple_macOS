@@ -8,6 +8,7 @@ import {
   RiSave3Fill,
   RiLayoutTopLine,
   RiFileCodeLine,
+  RiCloseLine,
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { HiDatabase } from "react-icons/hi";
@@ -22,6 +23,7 @@ const ICO = {
   clone: { i: RiFileCodeLine, text: "Сlone" },
 
   settings: { i: RiSoundModuleLine, text: "Settings" },
+  close: { i: RiCloseLine, text: "Close" },
 
   cloud: { i: RiSoundcloudLine, text: "Quintadb" },
   Databas: { i: HiDatabase, text: "Indexeddb" },
@@ -31,10 +33,16 @@ const ICO = {
 };
 
 const Icons = ({ ico, C, ...props }) => {
-  const text = ICO[ico].text;
+  const text = `${
+    props.activConect === undefined
+      ? ""
+      : props.activConect
+      ? "Connection "
+      : "no connection established "
+  }${ICO[ico].text}`;
   const Ico = ICO[ico].i();
   const Component = transforms[C];
-  // console.log(props)
+  
   return (
     <Component data-text={text} {...props}>
       {Ico}
@@ -62,7 +70,10 @@ const StyBefore = `
     justify-content: center;
     opacity: 0;
     display: grid;
+    white-space: nowrap;
     transition: all 0.1s ease-out;
+    color: black;
+   
   }
   &:hover::before{
     top: -35px;
@@ -88,9 +99,12 @@ export const StyBut = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
   & :last-child {
     width: 20px;
     height: 20px;
+    ${(P) =>
+      P.winEdit !== undefined && (P.winEdit && "color: darkgreen;") }
   }
   &:hover {
     ${(P) =>
@@ -104,8 +118,11 @@ export const StyBut = styled.div`
         ? "background-color: #d6d6d6"
         : "background-color: #ffffff8c"};
   }
+  // color: darkgray;
   ${(P) =>
-    P.isOpenItem !== undefined && !P.isOpenItem && "background-color: #d6d6d6"};
+    P.isOpenItem !== undefined &&
+    !P.isOpenItem &&
+    "background-color: #d6d6d6; color: darkgray"};
   ${StyBefore}
 `;
 
@@ -130,7 +147,7 @@ export const ButDatabas = styled.div`
   border: solid 1px #d6d6d6;
   background-color: #f3f3f3;
   border-radius: 5px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +158,13 @@ export const ButDatabas = styled.div`
   }
   & :last-child {
     ${(P) =>
-      P.varColor ? "color:  darkgreen" : "color: brown"};
+      P.activConect === undefined
+        ? ""
+        : P.activConect
+        ? P.varColor
+          ? "color:  darkgreen"
+          : "color: currentcolor"
+        : "color: brown"}
   }
   &:hover {
     background-color: #fff;
@@ -154,38 +177,26 @@ export const ButDatabas = styled.div`
 
   ${StyBefore}
 `;
-export const StyDatabasIn = styled.div`
+export const StyDatabas = styled.div`
   position: relative;
-  display: flex;
-  align-items: center;
+  cursor: pointer;
   justify-content: center;
-  top: 5px;
-  left: 5px;
+
   & :last-child {
     width: 20px;
     height: 20px;
     color: darkgreen;
   }
   ${StyBefore}
-`;
-export const StyDatabasOut = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 5px;
-  left: 5px;
-  & :last-child {
-    width: 20px;
-    height: 20px;
-    color: brown;
+  &:hover::before {
+    top: -29px;
+    left: -22px;
   }
-  ${StyBefore}
 `;
+
 const transforms = {
   StyBut: StyBut,
   StyIco: StyIco,
-  StyDatabasIn: StyDatabasIn,
-  StyDatabasOut: StyDatabasOut,
+  StyDatabas: StyDatabas,
   ButDatabas: ButDatabas,
 };

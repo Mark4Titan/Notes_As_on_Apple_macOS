@@ -1,14 +1,10 @@
-import ky from "ky";
 import axios from "axios";
-import iniStat from "./iniStat.json";
-import { fieldKeysDB } from "./fieldKeysDB";
+// import iniStat from "./iniStat.json";
 
 const apiKey = process.env.REACT_APP_APIKEY;
-
 const appId = process.env.REACT_APP_APP_ID;
 const entityId = process.env.REACT_APP_ENTITY_ID;
 
-const { tCreated, tTitle, tContent, tId, tQuintadb, tIndexeddb } = fieldKeysDB;
 
 const Url = "https://quintadb.com.ua/apps";
 
@@ -18,29 +14,26 @@ export const getAllRecords = async () => {
     const response = await axios({
       method: "GET",
       url: `${Url}/${appId}/dtypes/entity/${entityId}.json?rest_api_key=${apiKey}`,
-    });
-    const element = response.data.records;
-    return { data: element, status: response.status };
+    });         
+    return { data: response.data.records, status: response.status, masage: '' };
 
     // const element = iniStat.records;
-    // return { data: element, status: 200 };
+    // return { data: element, status: 404, masage: 'iniStat.records' };
   } catch (error) {
-    return {
-      data: {
+    return {      
         data: [],
-        masage: "Failed to connect QuintaDB",
-        status: error.status === undefined ? 404 : error.status,
-      },
+        masage: "Failed to connect QuintaDB!",
+        status: error.status === undefined ? 404 : error.status,      
     };
   }
 };
 
 // /apps/APP_ID/dtypes/ID.json
-export const deleteRecord = async (item) => {
+export const deleteRecord = async (item) => {  
   try {
     const response = await axios({
       method: "DELETE",
-      url: `${Url}/${appId}/dtypes/${item.idQuintadb}.json`,
+      url: `${Url}/${appId}/dtypes/${item.id}.json`,
       data: {
         rest_api_key: apiKey,
       },
@@ -48,13 +41,13 @@ export const deleteRecord = async (item) => {
     if (response.status === 200) {
       return { data: item, status: 200 };
     } else {
-      return { data: [], status: response.status };
+      return { data: {}, status: response.status, masage: '' };
     }
   } catch (error) {
     return {
       data: {
-        data: [],
-        masage: "Failed to connect QuintaDB",
+        data: {},
+        masage: "Failed to delete record!",
         status: error.status === undefined ? 404 : error.status,
       },
     };
@@ -62,68 +55,47 @@ export const deleteRecord = async (item) => {
 };
 
 // /apps/APP_ID/dtypes/ID.json
-export const editRecord = async (item) => {
-  try {
-   
+export const editRecord = async (changeItem, id) => {
+  try {   
     const response = await axios({
       method: "PUT",
-      url: `${Url}/${appId}/dtypes/${item.idQuintadb}.json`,
+      url: `${Url}/${appId}/dtypes/${id}.json`,
       data: {
         rest_api_key: apiKey,
-        values: {
-          entity_id: entityId,
-          [tContent]: item.content,
-          [tTitle]: item.title,
-          [tCreated]: item.created,
-          [tId]: item?.id,
-
-          [tQuintadb]: item.quintadb,
-          [tIndexeddb]: item.indexeddb,
-        },
+        values: {...changeItem,  entity_id: entityId,},
       },
     });
-    // const element = response.data.record;
-    // console.log(element)
-    return { data: response.data.record, status: response.status };
+    
+    return { data: response.data.record, status: response.status, masage: '' };
   } catch (error) {
     return {
       data: {
-        data: [],
-        masage: "Failed to connect QuintaDB",
+        data: {},
+        masage: "Failed to connect Failed to make QuintaDB from mine!",
         status: error.status === undefined ? 404 : error.status,
       },
     };
   }
 };
 
-export const addRecord = async (item) => {
-  try {
-    console.log("item",item)
+export const addRecord = async (newItem) => {
+ 
+  try {    
     const response = await axios({
       method: "POST",
       url: `${Url}/${appId}/dtypes.json`,
       data: {
         rest_api_key: apiKey,
-        values: {
-          entity_id: entityId,
-          [tContent]: item.content,
-          [tTitle]: item.title,
-          [tCreated]: item.created,
-          [tId]: item?.id,
-
-          [tQuintadb]: item.quintadb,
-          [tIndexeddb]: item.indexeddb,
-        },
+        values: {...newItem,  entity_id: entityId,},
       },
     });
-    const element = response.data.record;
-    console.log(element);
-    return { data: response.data.record, status: response.status };
+    
+    return { data: response.data.record, status: response.status, masage: '' };
   } catch (error) {
     return {
       data: {
-        data: [],
-        masage: "Failed to connect QuintaDB",
+        data: {},
+        masage: "Failed to create new record in QuintaDB!",
         status: error.status === undefined ? 404 : error.status,
       },
     };

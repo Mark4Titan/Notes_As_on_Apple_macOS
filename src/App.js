@@ -6,41 +6,98 @@ import Workspace from "./components/Workspace/Workspace";
 import WiWidth from "./Hooks/WiWitdth";
 import ApiIndexedDB from "./APIs/indexeddb/indexeddb";
 import Convertor from "./APIs/quintadb/convertor";
+import Modal from "./components/modal/modal";
+import Notif from "./components/notif/notif";
 
 function App() {
-  //cards
-  const [items, setItems] = useState([]);
-  const [itemsCloud, setItemsCloud] = useState([]);
-
-  // base selection db
+  // ui
   const [selectiondb, setSelectiondb] = useState({
-    indexeddb: true,
+    availabIndexeddb: false,
+    indexeddb: false,
+    availabQuintadb: false,
     quintadb: false,
   });
-  const [selecTrig, setselecTrig] = useState(false);
-
-  // ui
+  const [editItem, setEditItem] = useState(true);
   const [openItem, setOpenItem] = useState({});
   const [burger, setBurger] = useState(false);
-  const [stateInput, setStateInput] = useState("");
+  const [stateSearch, setStateSearch] = useState("");
 
-  // //  db
+  //  db
   const [conectdb, setConectdb] = useState(false);
   const [conectClouddb, setClouddb] = useState(false);
-  const [clouddbTriger, setClouddbTriger] = useState(false);
-  const [error, setError] = useState(null);
+  const [synchronization, setSynchronization] = useState(false);
+  const [error, setError] = useState(""); 
+
+  // cards
+  const [mainState, setMainState] = useState([]);
+  const [middleState, setMiddleState] = useState([]);
+  const [cloudState, setCloudState] = useState([]);
+
+  // modal
+  const [modal, setModal] = useState({
+    masage: "",
+    isModal: false,
+    version: false,
+  });
 
   const api = ApiIndexedDB();
   const cloudApi = Convertor();
 
+  let isW = WiWidth(520);
+
+  //DelNote
+  const showModal = () => {
+    setModal({ masage: "Delete entry?", isModal: true, version: false });
+  };
+  // auto Delete
+  useEffect(() => {
+    if (modal.version) {
+      if (openItem.id === undefined) return;
+
+      if (openItem.quintadb) {
+        cloudApi.delRecord(openItem).then((result) => {
+          if (result.status === 404) {
+            setError(result.masage);
+          } else {
+            setCloudState((prevState) =>
+              prevState.filter((obj) => obj.id !== result.data.id)
+            );
+            setSynchronization(true);
+            setOpenItem([]);
+          }
+        });
+      }
+
+      if (openItem.indexeddb) {
+        api.deleteRecord(openItem).then(({ data, status, masage }) => {
+          if (status === 404) {
+            setError(masage);
+          } else {
+            setMiddleState((prevState) =>
+              prevState.filter((obj) => obj.id !== data.id)
+            );
+            setSynchronization(true);
+            setOpenItem([]);
+          }
+        });
+      }
+      setModal({ masage: "", isModal: false, version: false });
+    }
+  }, [api, cloudApi, modal.version, openItem]);
+
+  useEffect(() => {
+    isW ? setBurger(false) : setBurger(true);
+    openItem.id === undefined && setBurger(true);
+  }, [isW, openItem]);
+
   //  database synchronization
   useEffect(() => {
-    if (clouddbTriger) {
+    if (synchronization && (conectdb || conectClouddb)) {
       const mergedArray = [];
-      if (items.length > 0) {
-        items.forEach((item1) => {
+      if (middleState.length > 0) {
+        middleState.forEach((item1) => {
           let found;
-          itemsCloud.forEach((item2) => {
+          cloudState.forEach((item2) => {
             if (item1.id === item2.id) {
               found = { ...item2, in: true };
             }
@@ -52,202 +109,145 @@ function App() {
           }
         });
       }
-      itemsCloud.forEach((item) => {
+      cloudState.forEach((item) => {
         if (!mergedArray.find((i) => i.id === item.id)) {
           mergedArray.push(item);
         }
       });
-      const newArray = [...mergedArray];
 
-      setTimeout(() => {
-        setClouddbTriger(false);
-        setItems(newArray);
-      }, 300);
+      // setTimeout(() => {
+      setSynchronization(false);
+      setMainState(mergedArray);
+      // }, 300);
+
+      // const mergedArray = [...middleState];
+      // cloudState.forEach((item) => {
+      //   if (!mergedArray.find((i) => i.id === item.id)) {
+      //     mergedArray.push(item);
+      //   }
+      // });
+      // setMainState(mergedArray);
+      // setSynchronization(false);
     }
-  }, [clouddbTriger, items, itemsCloud]);
+  }, [cloudState, conectClouddb, conectdb, middleState, synchronization]);
 
-  // connecting to databases and retrieving data
+  // connecting to databases
   useEffect(() => {
     if (conectClouddb === false) {
       cloudApi.getAll().then((result) => {
-        result.status === 200
-          ? setItemsCloud(result.datd)
-          : setError(result.masage);
+        if (result.status === 404) {
+          setError(result.masage);
+        } else {
+          setCloudState(result.datd);
+          setSelectiondb((prevState) => ({
+            ...prevState,
+            availabQuintadb: true,
+          }));
+          setSynchronization(true);
+        }
         setClouddb(true);
-        setClouddbTriger(true);
       });
     }
     if (conectdb === false)
       api
         .connectToDB()
         .then(() => api.getData())
-        .then(({ data, error }) => {
-          if (error) {
-            setError(error);
+        .then(({ data, status, masage }) => {
+          if (status === 404) {
+            setError(masage);
           } else {
-            setItems(data);
-            setConectdb(true);
+            setMiddleState(data);
+            setSynchronization(true);
+            setSelectiondb((prevState) => ({
+              ...prevState,
+              availabIndexeddb: true,
+            }));
           }
+          setConectdb(true);
         })
-        .catch((error) => api.handleDBError(error));
+        .catch((error) => setError(error));
   }, [api, cloudApi, conectClouddb, conectdb]);
 
-  // updating databases delete
-  useEffect(() => {
-    if (selecTrig) {
-      // console.log("openItem.indexeddb", openItem.indexeddb);
-      if (openItem.indexeddb === false && openItem.quintadb === false) {
-        // quintadb
-
-        console.log("openItem", openItem);
-
-        setItems((prevState) =>
-          prevState.filter((obj) => obj.id !== openItem.id)
-        );
-
-        setOpenItem({});
-      }
-    }
-  }, [openItem, selecTrig]);
-
-  //
-
-  const DelNote = () => {
-    if (openItem.id === undefined) return;
-
-    if (openItem.idQuintadb !== undefined && openItem.idQuintadb) {
-      cloudApi.delRecord(openItem).then((result) => {
-        setOpenItem((prevState) => ({
-          ...prevState,
-          quintadb: false,
-        }));
-      });
-      setselecTrig(true);
-    }
-
-    if (openItem.indexeddb !== undefined && openItem.indexeddb) {
-      api.deleteRecord(openItem).then(({ data, error }) => {
-        if (error) {
-          setError(error);
-        } else {
-          setOpenItem((prevState) => ({
-            ...prevState,
-            indexeddb: false,
-          }));
-        }
-      });
-      setselecTrig(true);
-    }
-  };
-
-  const CloneNote = () => {
-    if (openItem.id === undefined) return;
-// !!!!!!! до писати і синхронізувати
-    if (openItem.idQuintadb !== undefined && openItem.idQuintadb) {
-      cloudApi.cloneRecord(openItem).then((result) => {
-        // setOpenItem((prevState) => ({
-        //   ...prevState,
-        //   quintadb: false,
-        // }));
-        console.log("result",result)
-      });
-      // setselecTrig(true);
-
-    }
-
-    if (openItem.indexeddb !== undefined && openItem.indexeddb) {
-      api.cloneRecord(openItem).then(({ data, error }) => {
-        if (error) {
-          setError(error);
-        } else {
-          setItems((prevState) => [...prevState, data]);
-          setOpenItem(data);
-        }
-      });
-    }
-  };
-
+ 
   const editNote = (newOpenItem) => {
     if (openItem.id === undefined) return;
 
-    if (openItem.idQuintadb !== undefined && openItem.idQuintadb) {
-      cloudApi.addRecord(openItem).then((result) => {
-        setItems((prevState) =>
-          prevState.map((item) =>
-          item.id === result.id ? { ...item, ...result } : item
-          )
-          );
-        console.log("result",result)
-      });
-      // setselecTrig(true);
-
-    }
-
-
-
-    if (openItem.indexeddb !== undefined && openItem.indexeddb) {
-// повернутись для тестування
-      if (openItem.idQuintadb !== undefined && openItem.idQuintadb) {
-        cloudApi.changeRecord(newOpenItem).then(({ data, error }) => {
-          if (error) {
-            setError(error);
+    if (newOpenItem.quintadb) {
+      cloudApi.changeRecord(newOpenItem).then((result) => {
+       
+        if (result.status === 404) {
+          setError(result.masage);
         } else {
-          setItemsCloud((prevState) =>
-          prevState.map((item) =>
-          item.id === data.id ? { ...item, ...data } : item
-          )
-          );
-        }
-        console.log("changeRecord", data);
-      });
-      setselecTrig(true);
-    }
-    }
-
-    if (openItem.indexeddb !== undefined && openItem.indexeddb) {
-      api.editRecord(newOpenItem).then(({ data, error }) => {
-        if (error) {
-          setError(error);
-        } else {
-          setItems((prevState) =>
+          setCloudState((prevState) =>
             prevState.map((item) =>
-              item.id === data.id ? { ...item, ...data } : item
+              item.id === result.data.id ? { ...item, ...result.data } : item
             )
           );
+          setSynchronization(true);
+        }
+      });
+    }
+
+    if (newOpenItem.indexeddb) {
+      api.editRecord(newOpenItem).then(({ data, status, masage }) => {
+        if (status === 404) {
+          setError(masage);
+        } else {
+          setMiddleState((prevState) =>
+            prevState.map((item) =>
+              item.id === data.id ? { ...item, ...newOpenItem } : item
+            )
+          );
+
+          setSynchronization(true);
         }
       });
     }
   };
 
-  const addNote = () => {
+  const addNote = (quickCreation) => {
     const newOpenItem = {
+      ...quickCreation,
       indexeddb: selectiondb.indexeddb,
       quintadb: selectiondb.quintadb,
     };
 
-    api.addRecord(newOpenItem).then(({ data, error }) => {
-      if (error) {
-        setError(error);
-      } else {
-        setItems((prevState) => [...prevState, data]);
-        setOpenItem(data);
-      }
-    });
+    if (newOpenItem.quintadb) {
+      cloudApi.addRec(newOpenItem).then((result) => {
+        if (result.status === 404) {
+          setError(result.masage);
+        } else {
+          setCloudState((prevState) => [...prevState, result.data]);
+
+          setOpenItem(result.data);
+          setSynchronization(true);
+          setEditItem(true)
+        }
+      });
+    }
+
+    if (newOpenItem.indexeddb) {
+      api.addRecord(newOpenItem).then(({ data, status, masage }) => {
+        if (status === 404) {
+          setError(masage);
+        } else {
+          setMiddleState((prevState) => [...prevState, data]);
+          setOpenItem(data);
+          setSynchronization(true);
+          setEditItem(true)
+        }
+      });
+    }
   };
-
-  let isW = WiWidth(520);
-
-  useEffect(() => {
-    isW ? setBurger(false) : setBurger(true);
-    openItem.id === undefined && setBurger(true);
-  }, [isW, openItem]);
 
   const closeCart = () => {
     setOpenItem({});
+    setEditItem(true)
   };
   const openCart = (cart) => {
     setOpenItem(cart);
     if (isW) setBurger(false);
+    setEditItem(false)
   };
 
   return (
@@ -257,36 +257,47 @@ function App() {
           burger={burger}
           setBurger={setBurger}
           isW={isW}
-          setStateInput={setStateInput}
-          stateInput={stateInput}
-          DelNote={DelNote}
-          CloneNote={CloneNote}
+          setStateSearch={setStateSearch}
+          stateSearch={stateSearch}
           addNote={addNote}
+          showModal={showModal}
+          setEditItem={setEditItem}
+          editItem={editItem}
           isOpenItem={openItem.id === undefined ? false : true}
         />
         <DivWork burger={burger} isW={isW}>
           {burger && (
             <ListItem
-              items={items}
+              items={mainState}
               closeCart={closeCart}
               openCart={openCart}
               openItem={openItem}
               isW={isW}
-              stateInput={stateInput}
+              stateSearch={stateSearch}
               isOpenItem={openItem.id === undefined ? false : true}
             />
           )}
           {(!burger || !isW) && (
             <Workspace
-              items={items}
+              items={mainState}
               openItem={openItem}
               editNote={editNote}
               addNote={addNote}
               selectiondb={selectiondb}
               setSelectiondb={setSelectiondb}
+              conectdb={conectdb}
+              editItem={editItem}
+              conectClouddb={conectClouddb}
             />
           )}
         </DivWork>
+        <Notif error={error} setError={setError} />
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          openItem={openItem}
+          showModal={showModal}
+        />
       </DivContent>
     </DivMain>
   );
