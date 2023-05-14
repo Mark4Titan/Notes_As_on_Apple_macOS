@@ -18,9 +18,20 @@ export const UlSidebar = styled.ul`
   grid-gap: 10px;
   grid-template: 1fr/ 1fr 1fr 1fr 1fr 1fr;
 `;
+export const DivPanelTol = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template: 1fr/ 1fr  1fr;
+`;
 export const DivPanel = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template: 1fr/ 1fr;
   justify-items: end;
+`;
+export const DivPan = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template: 1fr/ 1fr;
+  justify-items: start;
 `;
