@@ -25,6 +25,8 @@ export const H2Wrap = styled.div`
   font-family: inherit;
   grid-gap: 5px;
   justify-items: center;
+  justify-items: end;
+  margin-right: 5px;
 `;
 export const H2Data = styled.h2`
   grid-column: 3/4;
@@ -67,4 +69,5 @@ export const TContent = styled.textarea`
   outline: none;
   border-radius: 5px;
   ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
+  
 `;

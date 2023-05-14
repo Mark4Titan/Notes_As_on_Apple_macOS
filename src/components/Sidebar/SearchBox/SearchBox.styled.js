@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const DivSearch = styled.div`
   position: relative; 
-  margin-right: 10px;
+  margin-right: 15px;
 
 `;
 

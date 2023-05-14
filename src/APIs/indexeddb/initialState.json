@@ -1,0 +1,19 @@
+[
+  {
+    "id": "CpkuNHWCJjFKOONm51UXT",
+    "created": "14.05.2023  (16:38)",
+    "title": "Про проект UA",
+    "content":
+    "Цей текст можна побачити лише тоді, коли база даних 'indexeddb' створюється вперше. Загалом завдання сподобалося, якби у 'quintadb' було більше підключень до бази, взагалі було б чудово, довелося 3 рази реєструватися(( але це таке. На Mac не працювало, тому не особливо розбираюся в стилістичних рішеннях, але думаю вийшло непогано. На проект пішло 6 змін)) довго не міг підключити лібу 'ky' до 'quintadb', спойлер не зміг(( Особливо при гнічувало, що все працює в 'postman', а не через лібу ні(( Чекаю фіт. Гарного дня.   \n             \n\n\nP.S. Робоча електронна пошта 'markfamiliytitan@gmail.com' ТЕЛЕГРАМА: https: //t.me/MArkTitan\n\n"
+  },
+  {
+    "id": "DSJ5-8KkFF18B5m6pRc3n",
+    "created": "14.05.2023  (16:59)",
+    "title": "About the project EN",
+    "content":
+      "This text is only visible when the database 'indexeddb' is created for the first time. In general, I liked the task, if 'quintadb' had more connections to the database, in general it would be great, I had to register 3 times(( but that's it. It didn't work on Mac, so I'm not particularly good at stylistic solutions, but I think it turned out not bad. For the project it took 6 changes)) for a long time I could not connect the lib 'ky' to 'quintadb', the spoiler could not(( Especially when it was frustrating that everything works in 'postman', not because of the lib no(( I'm waiting for the fit. Have a nice day.   \n             \n\n\nP.S. Working email 'markfamiliytitan@gmail.com' TELEGRAM: https://t.me/MArkTitan\n\n"
+  }
+ 
+]
+
+

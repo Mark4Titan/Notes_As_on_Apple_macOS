@@ -2,11 +2,11 @@
 import { DivSearch, SearchInput } from "./SearchBox.styled";
 import Icons from "../../ico/Icons";
 
-const SearchBox = ({ stateInput, setStateInput}) => {
+const SearchBox = ({ stateSearch, setStateSearch}) => {
  
   const ValueIn = (value) => {
     const validator = value === " " ? "" : value;
-    setStateInput(validator);
+    setStateSearch(validator);
   };
   return (
     <DivSearch>
@@ -15,7 +15,7 @@ const SearchBox = ({ stateInput, setStateInput}) => {
         name="input"
         placeholder="Search"
         onChange={(e) => ValueIn(e.target.value)}
-        value={stateInput}
+        value={stateSearch}
       />
       <Icons ico="search" C='StyIco' />
     </DivSearch>
