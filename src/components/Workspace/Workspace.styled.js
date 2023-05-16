@@ -26,7 +26,6 @@ export const H2Wrap = styled.div`
   grid-gap: 5px;
   justify-items: center;
   justify-items: end;
-  margin-right: 5px;
 `;
 export const H2Data = styled.h2`
   grid-column: 3/4;
