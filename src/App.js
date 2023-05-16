@@ -3,7 +3,7 @@ import { DivContent, DivMain, DivWork } from "./app.styled";
 import ListItem from "./components/ListItem/ListItem";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Workspace from "./components/Workspace/Workspace";
-import WiWidth from "./Hooks/WiWitdth";
+import useWiWidth from "./Hooks/WiWitdth";
 import ApiIndexedDB from "./APIs/indexeddb/indexeddb";
 import Convertor from "./APIs/quintadb/convertor";
 import Modal from "./components/modal/modal";
@@ -26,7 +26,7 @@ function App() {
   const [conectdb, setConectdb] = useState(false);
   const [conectClouddb, setClouddb] = useState(false);
   const [synchronization, setSynchronization] = useState(false);
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
 
   // cards
   const [mainState, setMainState] = useState([]);
@@ -43,7 +43,7 @@ function App() {
   const api = ApiIndexedDB();
   const cloudApi = Convertor();
 
-  let isW = WiWidth(520);
+  let isW = useWiWidth(530);
 
   //DelNote
   const showModal = () => {
@@ -168,13 +168,11 @@ function App() {
         .catch((error) => setError(error));
   }, [api, cloudApi, conectClouddb, conectdb]);
 
- 
   const editNote = (newOpenItem) => {
     if (openItem.id === undefined) return;
 
     if (newOpenItem.quintadb) {
       cloudApi.changeRecord(newOpenItem).then((result) => {
-       
         if (result.status === 404) {
           setError(result.masage);
         } else {
@@ -221,7 +219,7 @@ function App() {
 
           setOpenItem(result.data);
           setSynchronization(true);
-          setEditItem(true)
+          setEditItem(true);
         }
       });
     }
@@ -234,7 +232,7 @@ function App() {
           setMiddleState((prevState) => [...prevState, data]);
           setOpenItem(data);
           setSynchronization(true);
-          setEditItem(true)
+          setEditItem(true);
         }
       });
     }
@@ -242,12 +240,12 @@ function App() {
 
   const closeCart = () => {
     setOpenItem({});
-    setEditItem(true)
+    setEditItem(true);
   };
   const openCart = (cart) => {
     setOpenItem(cart);
     if (isW) setBurger(false);
-    setEditItem(false)
+    setEditItem(false);
   };
 
   return (

@@ -34,11 +34,13 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateSearch }) => {
     return openCart(data);
   };
 
-  const contentPat = [220, 480, 5, 35];
-  const titlePat = [220, 480, 10, 35];
+  const titlePat = [220, 480, 7, 37];
+  const contentPat = [220, 480, 4, 37];
 
-  let contentWi = useWindowSize(myRef, contentPat);
   let titlWi = useWindowSize(myRef, titlePat);
+  let contentWi = useWindowSize(myRef, contentPat);
+
+ 
 
   return (
     <DivList>

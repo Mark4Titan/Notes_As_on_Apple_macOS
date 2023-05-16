@@ -16,7 +16,19 @@ export const UlSidebar = styled.ul`
   margin: 0 10px 0 10px;
   display: grid;
   grid-gap: 10px;
-  grid-template: 1fr/ 1fr 1fr 1fr 1fr 1fr;
+  grid-template: 1fr/ 1fr 1fr 1fr 1fr;
+`;
+export const LiSidebar = styled.li`
+animation: slideIco 0.4s ease-in-out;  
+
+@keyframes slideIco {
+  from { transform: translateX(120%); 
+    opacity: 0;
+  }
+  to { transform: translateX(0); 
+    opacity: 1;
+  }
+}
 `;
 export const DivPanelTol = styled.div`
   display: grid;

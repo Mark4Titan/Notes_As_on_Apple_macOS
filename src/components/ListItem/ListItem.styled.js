@@ -7,13 +7,17 @@ export const DivList = styled.div`
   border: solid 1px #d6d6d6;
   border-bottom-left-radius: 5px;
   overflow: auto;
+  
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
+    border-radius: 10px;
+    background-color: #d6d6d6;
   }
   ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
     background: #888;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -31,7 +35,7 @@ export const LiItems = styled.li`
   cursor: pointer;
   border: solid 1px #d6d6d6;
   background-color: ${(P) => (P.SColor ? "#ffffff8c" : "#d6d6d6")};
-  padding: 20px;
+  padding: 15px;
   display: grid;
   grid-template: auto / 1fr;
   grid-gap: 5px;

@@ -6,6 +6,7 @@ import {
   DivPanel,
   DivPanelTol,
   DivPan,
+  LiSidebar,
 } from "./Sidebar.styled";
 
 const Sidebar = ({
@@ -31,31 +32,31 @@ const Sidebar = ({
       <DivPanelTol>
         <DivPan>
           <UlSidebar>
-            <li onClick={() => setBurger(!burger)}>
+            <LiSidebar onClick={() => setBurger(!burger)}>
               {burger ? (
                 <Icons ico="burgrtClose" C="StyBut" />
               ) : (
                 <Icons ico="burgrtOpen" C="StyBut" />
               )}
-            </li>
+            </LiSidebar>
 
             {(!isW || !burger) && (
               <>
-                <li onClick={() => addNote()}>
+                <LiSidebar onClick={() => addNote()}>
                   <Icons ico="add" C="StyBut" />
-                </li>
-                <li onClick={() => isDel()}>
+                </LiSidebar>
+                <LiSidebar onClick={() => isDel()}>
                   <Icons ico="del" C="StyBut" isOpenItem={isOpenItem} />
-                </li>
+                </LiSidebar>
 
-                <li onClick={() => isEdit()}>
+                <LiSidebar onClick={() => isEdit()}>
                   <Icons
                     ico="edit"
                     C="StyBut"
                     isOpenItem={isOpenItem}
                     winEdit={editItem && isOpenItem}
                   />
-                </li>
+                </LiSidebar>
               </>
             )}
           </UlSidebar>
@@ -65,6 +66,7 @@ const Sidebar = ({
             <SearchBox
               setStateSearch={setStateSearch}
               stateSearch={stateSearch}
+              isW={isW}
             />
           </DivPanel>
         )}
