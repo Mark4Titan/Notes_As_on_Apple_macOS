@@ -26,7 +26,7 @@ export const DivList = styled.div`
 `;
 export const UlListContent = styled.ul`
   display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: repeat(auto-fit, 82px);
 
   grid-gap: 5px;
   padding: 5px;
@@ -35,6 +35,7 @@ export const LiItems = styled.li`
   cursor: pointer;
   border: solid 1px #d6d6d6;
   background-color: ${(P) => (P.SColor ? "#ffffff8c" : "#d6d6d6")};
+  height: 50px;
   padding: 15px;
   display: grid;
   grid-template: auto / 1fr;
