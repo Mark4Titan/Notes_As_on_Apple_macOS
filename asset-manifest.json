@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/notes_as_on_apple_macos/static/css/main.a73e937c.css",
-    "main.js": "/notes_as_on_apple_macos/static/js/main.8b747e26.js",
+    "main.js": "/notes_as_on_apple_macos/static/js/main.b44c3fb8.js",
     "static/js/787.ecbe1390.chunk.js": "/notes_as_on_apple_macos/static/js/787.ecbe1390.chunk.js",
     "index.html": "/notes_as_on_apple_macos/index.html",
     "main.a73e937c.css.map": "/notes_as_on_apple_macos/static/css/main.a73e937c.css.map",
-    "main.8b747e26.js.map": "/notes_as_on_apple_macos/static/js/main.8b747e26.js.map",
+    "main.b44c3fb8.js.map": "/notes_as_on_apple_macos/static/js/main.b44c3fb8.js.map",
     "787.ecbe1390.chunk.js.map": "/notes_as_on_apple_macos/static/js/787.ecbe1390.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a73e937c.css",
-    "static/js/main.8b747e26.js"
+    "static/js/main.b44c3fb8.js"
   ]
 }
