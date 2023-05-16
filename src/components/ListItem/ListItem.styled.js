@@ -3,18 +3,18 @@ import styled from "@emotion/styled";
 export const DivList = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #fafaf8;
   border: solid 1px #d6d6d6;
   border-bottom-left-radius: 5px;
   overflow: auto;
-  
+  margin-top: 10px;
+  background-color: ${(P) => (P.SColor ? "#fafaf8" : "#d6d6d696")};
+
   ::-webkit-scrollbar {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
-    background-color: #d6d6d6;
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
@@ -26,15 +26,16 @@ export const DivList = styled.div`
 `;
 export const UlListContent = styled.ul`
   display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-rows: repeat(auto-fit, 82px);
 
   grid-gap: 5px;
   padding: 5px;
 `;
 export const LiItems = styled.li`
   cursor: pointer;
-  border: solid 1px #d6d6d6;
-  background-color: ${(P) => (P.SColor ? "#ffffff8c" : "#d6d6d6")};
+  border: solid 1px ${(P) => (P.SColor ? "#d6d6d696" : "#fafaf8")};
+  ${(P) => P.SColor && "background-color: #fafaf8"};
+  height: 50px;
   padding: 15px;
   display: grid;
   grid-template: auto / 1fr;
@@ -42,24 +43,25 @@ export const LiItems = styled.li`
   align-items: center;
   &:hover {
     box-shadow: 0px 3px 5px 1px #4f4f4f5e;
-    background-color: #ffffff8c;
+    background-color: #ffffff;
+    // background-color: #fafaf8;
   }
   &:active {
     box-shadow: 0px 3px 5px 1px #ded9d9;
   }
 
-  animation: slideOpen 0.4s ease-in-out;  
+  animation: slideOpen 0.4s ease-in-out;
 
   @keyframes slideOpen {
-    from { transform: translateY(120%); 
+    from {
+      transform: translateY(120%);
       opacity: 0;
     }
-    to { transform: translateY(0); 
+    to {
+      transform: translateY(0);
       opacity: 1;
     }
   }
-
-  
 `;
 export const DivBasis = styled.div`
   display: grid;
@@ -79,4 +81,3 @@ export const DivTitle = styled.h3`
   grid-column: 1/2;
   display: grid;
 `;
-
