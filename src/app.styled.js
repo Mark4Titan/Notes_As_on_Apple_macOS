@@ -32,5 +32,6 @@ export const DivWork = styled.div`
   justify-items: center;
   align-items: center;
   justify-content: center;
+ 
   
 `

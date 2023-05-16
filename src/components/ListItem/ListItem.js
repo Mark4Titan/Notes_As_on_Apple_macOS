@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import {
   DivBasis,
@@ -40,10 +39,8 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateSearch }) => {
   let titlWi = useWindowSize(myRef, titlePat);
   let contentWi = useWindowSize(myRef, contentPat);
 
- 
-
   return (
-    <DivList>
+    <DivList SColor={openItem.id === undefined}>
       <UlListContent ref={myRef}>
         {item.map((elem) => (
           <LiItems

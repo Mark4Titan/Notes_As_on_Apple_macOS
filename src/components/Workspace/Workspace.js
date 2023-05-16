@@ -165,12 +165,14 @@ const Workspace = ({
             {openItem.created === undefined ? "Quick note" : openItem.created}
           </H2Data>
         </H2Wrap>
-
-        <InputTitle
-          value={title}
-          disabled={!editItem}
-          onChange={(e) => texstChange(setTitle, e.target.value)}
-        />
+      
+          <InputTitle
+            value={title}
+            disabled={!editItem}
+            placeholder="Title"
+            onChange={(e) => texstChange(setTitle, e.target.value)}
+          />
+       
         <TContent
           ref={inputRef}
           disabled={!editItem}

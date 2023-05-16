@@ -7,6 +7,7 @@ export const DivWork = styled.div`
   background-color: #fafaf8;
   border: solid 1px #d6d6d6;
   border-bottom-right-radius: 5px;
+  margin-top: 10px;
 `;
 export const DivContent = styled.div`
   padding: 20px;
@@ -39,6 +40,7 @@ export const H2Data = styled.h2`
   letter-spacing: 1px;
 `;
 export const InputTitle = styled.input`
+  position: relative;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -49,10 +51,14 @@ export const InputTitle = styled.input`
   font-family: inherit;
   outline: none;
   border-radius: 5px;
+  padding: 10px;
 
   background-color: transparent;
   ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
+  
 `;
+
+
 export const TContent = styled.textarea`
   display: grid;
   justify-items: center;
@@ -67,6 +73,6 @@ export const TContent = styled.textarea`
   max-height: 100%;
   outline: none;
   border-radius: 5px;
+  padding: 10px;
   ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
-  
 `;
