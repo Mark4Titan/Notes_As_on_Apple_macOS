@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 
-export function WiWidth(thresholdWidth = null) {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth < thresholdWidth);
-
+export function useWiWidth(thresholdWidth = null) {
+  const [windowWidth, setWindowWidth] = useState(
+    window.innerWidth < thresholdWidth
+  );
 
   useEffect(() => {
     const handleResize = () => {
       if (thresholdWidth === null) {
         setWindowWidth(window.innerWidth);
       } else {
-        
         const width = window.innerWidth;
         setWindowWidth(width < thresholdWidth);
       }
@@ -22,4 +22,4 @@ export function WiWidth(thresholdWidth = null) {
   return windowWidth;
 }
 
-export default WiWidth;
+export default useWiWidth;

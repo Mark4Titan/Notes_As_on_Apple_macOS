@@ -2,7 +2,19 @@ import styled from "@emotion/styled";
 
 export const DivSearch = styled.div`
   position: relative; 
-  margin-right: 15px;
+  
+  margin-right: ${P=>P.isW ? 10 : 20}px;
+
+  animation: slideSor 0.4s ease-in-out;  
+
+@keyframes slideSor {
+  from { transform: translateX(-80%); 
+    opacity: 0;
+  }
+  to { transform: translateX(0); 
+    opacity: 1;
+  }
+}
 
 `;
 
