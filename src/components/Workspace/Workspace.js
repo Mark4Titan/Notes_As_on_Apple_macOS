@@ -8,7 +8,6 @@ import {
   H2Wrap,
 } from "./Workspace.styled";
 import Icons from "../ico/Icons";
-import moment from "moment/moment";
 
 const Workspace = ({
   openItem,
@@ -25,38 +24,30 @@ const Workspace = ({
   const [title, setTitle] = useState("");
   const [ID, setID] = useState(null);
   // auto save
-  const [autoTime, setAutoTime] = useState(null);
-  const [tic, setTic] = useState(null);
   const [trigerTime, setTrigerTime] = useState(false);
   const inputRef = useRef(null);
 
-  const time = () => Number(moment().format("ss"));
-
   useEffect(() => {
-    if (editItem) {
-      inputRef.current.focus();
-    }
-  }, [content.length, editItem]);
+    const handleTimeout = () => {
+      if (trigerTime) {
+        editNote({ ...openItem, content, title });
+        setTrigerTime(false);
+      }
+    };
 
-  useEffect(() => {
-    let intervalId;
-    if (trigerTime) {
-      intervalId = setInterval(() => {
-        setTic(time());
-      }, 200);
-    } else {
-      clearInterval(intervalId);
-    }
+    let timeoutId = setTimeout(handleTimeout, 1000);
 
-    return () => clearInterval(intervalId);
-  }, [trigerTime]);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [content, editNote, openItem, title, trigerTime]);
 
-  useEffect(() => {
-    if (trigerTime && autoTime + 0.5 < tic) {
-      editNote({ ...openItem, content, title });
-      setTrigerTime(false);
-    }
-  }, [autoTime, content, editNote, openItem, tic, title, trigerTime]);
+  const texstChange = (setV, e) => {
+    setV(e);
+    setTrigerTime(true);
+
+    if (openItem.id === undefined) addNote({ ...openItem, content, title });
+  };
 
   useEffect(() => {
     if (conectdb && conectClouddb) {
@@ -104,14 +95,6 @@ const Workspace = ({
         }));
     }
   }, [ID, openItem, setSelectiondb]);
-
-  const texstChange = (setV, e) => {
-    setTrigerTime(true);
-    setAutoTime(time());
-    setV(e);
-
-    if (openItem.id === undefined) addNote({ ...openItem, content, title });
-  };
 
   const managerActivConect = (userClicDb) => {
     if (userClicDb === "indexeddb" && selectiondb.availabIndexeddb)
@@ -165,14 +148,14 @@ const Workspace = ({
             {openItem.created === undefined ? "Quick note" : openItem.created}
           </H2Data>
         </H2Wrap>
-      
-          <InputTitle
-            value={title}
-            disabled={!editItem}
-            placeholder="Title"
-            onChange={(e) => texstChange(setTitle, e.target.value)}
-          />
-       
+
+        <InputTitle
+          value={title}
+          disabled={!editItem}
+          placeholder="Title"
+          onChange={(e) => texstChange(setTitle, e.target.value)}
+        />
+
         <TContent
           ref={inputRef}
           disabled={!editItem}

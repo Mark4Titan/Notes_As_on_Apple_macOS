@@ -18,7 +18,7 @@ export const getAllRecords = async () => {
     return { data: response.data.records, status: response.status, masage: '' };
 
     // const element = iniStat.records;
-    // return { data: element, status: 404, masage: 'iniStat.records' };
+    // return { data: element, status: 404, masage: 'load => iniStat.records' };
   } catch (error) {
     return {      
         data: [],

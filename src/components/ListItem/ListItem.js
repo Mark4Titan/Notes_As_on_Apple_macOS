@@ -33,8 +33,8 @@ const ListItem = ({ items, closeCart, openCart, openItem, stateSearch }) => {
     return openCart(data);
   };
 
-  const titlePat = [220, 480, 7, 37];
-  const contentPat = [220, 480, 4, 37];
+  const titlePat = [220, 480, 7, 27];
+  const contentPat = [220, 480, 4, 35];
 
   let titlWi = useWindowSize(myRef, titlePat);
   let contentWi = useWindowSize(myRef, contentPat);
