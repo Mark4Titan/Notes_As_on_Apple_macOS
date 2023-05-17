@@ -23,9 +23,8 @@ function Convertor() {
         indexeddb: false,
       });
     }
-    
-    // return { datd: [], status: 200 };
-    return { datd: elements, status: records.status, masage: records.masage };
+    return { datd: elements, status: records.status, masage: records.masage };   
+   
   }
 
   //
