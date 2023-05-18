@@ -9,6 +9,10 @@ import {
   RiLayoutTopLine,
   RiFileCodeLine,
   RiCloseLine,
+  RiBriefcase4Line,
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiTimeLine,
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { HiDatabase } from "react-icons/hi";
@@ -27,11 +31,14 @@ const ICO = {
 
   cloud: { i: RiSoundcloudLine, text: "Quintadb" },
   Databas: { i: HiDatabase, text: "Indexeddb" },
-
   rec: { i: RiSave3Fill, text: "Record" },
-  search: { i: BiSearch, text: "Search" },
-};
 
+  search: { i: BiSearch, text: "Search" },
+  time: { i: RiTimeLine, text: "Time" },
+  summary: { i: RiBriefcase4Line, text: "My Summary" },
+  down: { i: RiArrowDownSLine, text: "Previous" },
+  up: { i: RiArrowUpSLine, text: "Following" },
+};
 const Icons = ({ ico, C, ...props }) => {
   const text = `${
     props.activConect === undefined
@@ -42,7 +49,7 @@ const Icons = ({ ico, C, ...props }) => {
   }${ICO[ico].text}`;
   const Ico = ICO[ico].i();
   const Component = transforms[C];
-  
+
   return (
     <Component data-text={text} {...props}>
       {Ico}
@@ -103,8 +110,7 @@ export const StyBut = styled.div`
   & :last-child {
     width: 20px;
     height: 20px;
-    ${(P) =>
-      P.winEdit !== undefined && (P.winEdit && "color: darkgreen;") }
+    ${(P) => P.winEdit !== undefined && P.winEdit && "color: darkgreen;"}
   }
   &:hover {
     ${(P) =>
@@ -178,6 +184,7 @@ export const ButDatabas = styled.div`
   ${StyBefore}
 `;
 export const StyDatabas = styled.div`
+  display: grid;
   position: relative;
   cursor: pointer;
   justify-content: center;
@@ -185,8 +192,12 @@ export const StyDatabas = styled.div`
   & :last-child {
     width: 20px;
     height: 20px;
-    color: darkgreen;
+    color: ${(P) => (P.colorVar !== undefined ? P.colorVar : "darkgreen")};
   }
+  &:hover :last-child {
+    color: ${(P) => P.colorVar !== undefined && "darkgreen"};
+  }
+
   ${StyBefore}
   &:hover::before {
     top: -29px;

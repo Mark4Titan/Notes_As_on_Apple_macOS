@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icons from "../ico/Icons";
 import SearchBox from "./SearchBox/SearchBox";
 import {
@@ -7,7 +8,13 @@ import {
   DivPanelTol,
   DivPan,
   LiSidebar,
+  DivMenuDop,
 } from "./Sidebar.styled";
+import Container from "./Container";
+import BuutonMenu from "./BuutonMenu/BuutonMenu";
+import SummaryBox from "./SummaryBox/SummaryBox";
+import ClockBox from "./Clock/Clock";
+import ThemeBox from "./ThemeBox/ThemeBox";
 
 const Sidebar = ({
   isOpenItem,
@@ -21,12 +28,15 @@ const Sidebar = ({
   setEditItem,
   editItem,
 }) => {
+  const [dopMenu, setDopMenu] = useState({menu:"search", menuMovement: 1});
+
   const isEdit = () => {
     isOpenItem && setEditItem((privState) => !privState);
   };
   const isDel = () => {
     isOpenItem && showModal();
   };
+
   return (
     <SidMain>
       <DivPanelTol>
@@ -63,11 +73,34 @@ const Sidebar = ({
         </DivPan>
         {(!isW || burger) && (
           <DivPanel>
-            <SearchBox
-              setStateSearch={setStateSearch}
-              stateSearch={stateSearch}
-              isW={isW}
-            />
+            <DivMenuDop>
+
+              <BuutonMenu dopMenu={dopMenu} setDopMenu={setDopMenu}/>
+
+              {dopMenu.menu === "search" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <SearchBox
+                    setStateSearch={setStateSearch}
+                    stateSearch={stateSearch}                    
+                  />
+                </Container>
+              )}
+              {dopMenu.menu === "summary" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <SummaryBox/>
+                </Container>
+              )}
+              {dopMenu.menu === "clock" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <ClockBox/>
+                </Container>
+              )}
+              {dopMenu.menu === "theme" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <ThemeBox/>
+                </Container>
+              )}
+            </DivMenuDop>
           </DivPanel>
         )}
       </DivPanelTol>

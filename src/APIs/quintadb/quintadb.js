@@ -1,6 +1,5 @@
 import axios from "axios";
-// import iniStat from "./iniStat.json";
-
+import iniStat from "./iniStat.json";
 const apiKey = process.env.REACT_APP_APIKEY;
 const appId = process.env.REACT_APP_APP_ID;
 const entityId = process.env.REACT_APP_ENTITY_ID;
@@ -11,14 +10,14 @@ const Url = "https://quintadb.com.ua/apps";
 // /apps/APP_ID/dtypes/entity/ENTITY_ID.json
 export const getAllRecords = async () => {
   try {
-    const response = await axios({
-      method: "GET",
-      url: `${Url}/${appId}/dtypes/entity/${entityId}.json?rest_api_key=${apiKey}`,
-    });         
-    return { data: response.data.records, status: response.status, masage: '' };
+    // const response = await axios({
+    //   method: "GET",
+    //   url: `${Url}/${appId}/dtypes/entity/${entityId}.json?rest_api_key=${apiKey}`,
+    // });         
+    // return { data: response.data.records, status: response.status, masage: '' };
 
-    // const element = iniStat.records;
-    // return { data: element, status: 404, masage: 'load => iniStat.records' };
+    const element = iniStat.records;
+    return { data: element, status: 404, masage: 'load => iniStat.records' };
   } catch (error) {
     return {      
         data: [],
