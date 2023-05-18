@@ -36,7 +36,8 @@ export const H2Data = styled.h2`
   -webkit-box-pack: center;
   justify-content: start;
   color: #00000066;
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 800;
   letter-spacing: 1px;
 `;
 export const InputTitle = styled.input`
@@ -55,9 +56,7 @@ export const InputTitle = styled.input`
 
   background-color: transparent;
   ${(P) => (P.value.length > 0 ? "border: none" : "border: solid 1px #d6d6d6")};
-  
 `;
-
 
 export const TContent = styled.textarea`
   display: grid;

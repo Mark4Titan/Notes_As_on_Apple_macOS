@@ -13,6 +13,7 @@ import {
   RiArrowDownSLine,
   RiArrowUpSLine,
   RiTimeLine,
+  RiFormatClear
 } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { HiDatabase } from "react-icons/hi";
@@ -34,6 +35,8 @@ const ICO = {
   rec: { i: RiSave3Fill, text: "Record" },
 
   search: { i: BiSearch, text: "Search" },
+  clear: { i: RiFormatClear, text: "Clear" },
+
   time: { i: RiTimeLine, text: "Time" },
   summary: { i: RiBriefcase4Line, text: "My Summary" },
   down: { i: RiArrowDownSLine, text: "Previous" },

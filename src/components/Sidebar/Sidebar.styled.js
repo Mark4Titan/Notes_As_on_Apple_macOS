@@ -52,6 +52,6 @@ export const DivPan = styled.div`
 export const DivMenuDop = styled.div`
   display: grid;
   grid-gap: 10px;
-  grid-template: 1fr/ 24px 190px;
+  grid-template: 1fr/ ${P=>!P.isW && '24px'}  190px;
   justify-items: start;
 `;

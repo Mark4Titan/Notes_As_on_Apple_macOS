@@ -17,6 +17,7 @@ function App() {
     availabQuintadb: false,
     quintadb: false,
   });
+
   const [editItem, setEditItem] = useState(true);
   const [openItem, setOpenItem] = useState({});
   const [burger, setBurger] = useState(false);
@@ -40,10 +41,12 @@ function App() {
     version: false,
   });
 
+ 
+
   const api = ApiIndexedDB();
   const cloudApi = Convertor();
 
-  let isW = useWiWidth(530);
+  let isW = useWiWidth(581);
 
   //DelNote
   const showModal = () => {
