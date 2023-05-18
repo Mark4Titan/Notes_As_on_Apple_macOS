@@ -1,6 +1,5 @@
 import axios from "axios";
 // import iniStat from "./iniStat.json";
-
 const apiKey = process.env.REACT_APP_APIKEY;
 const appId = process.env.REACT_APP_APP_ID;
 const entityId = process.env.REACT_APP_ENTITY_ID;

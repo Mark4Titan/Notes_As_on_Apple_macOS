@@ -19,21 +19,23 @@ export const UlSidebar = styled.ul`
   grid-template: 1fr/ 1fr 1fr 1fr 1fr;
 `;
 export const LiSidebar = styled.li`
-animation: slideIco 0.4s ease-in-out;  
+  animation: slideIco 0.4s ease-in-out;
 
-@keyframes slideIco {
-  from { transform: translateX(120%); 
-    opacity: 0;
+  @keyframes slideIco {
+    from {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
-  to { transform: translateX(0); 
-    opacity: 1;
-  }
-}
 `;
 export const DivPanelTol = styled.div`
   display: grid;
   grid-gap: 10px;
-  grid-template: 1fr/ 1fr  1fr;
+  grid-template: 1fr/ 1fr 1fr;
 `;
 export const DivPanel = styled.div`
   display: grid;
@@ -45,5 +47,11 @@ export const DivPan = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template: 1fr/ 1fr;
+  justify-items: start;
+`;
+export const DivMenuDop = styled.div`
+  display: grid;
+  grid-gap: 10px;
+  grid-template: 1fr/ ${P=>!P.isW && '24px'}  190px;
   justify-items: start;
 `;

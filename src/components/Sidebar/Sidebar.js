@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Icons from "../ico/Icons";
 import SearchBox from "./SearchBox/SearchBox";
 import {
@@ -7,7 +8,12 @@ import {
   DivPanelTol,
   DivPan,
   LiSidebar,
+  DivMenuDop,
 } from "./Sidebar.styled";
+import Container from "./Container";
+import BuutonMenu from "./BuutonMenu/BuutonMenu";
+import SummaryBox from "./SummaryBox/SummaryBox";
+import ClockBox from "./Clock/Clock";
 
 const Sidebar = ({
   isOpenItem,
@@ -21,16 +27,25 @@ const Sidebar = ({
   setEditItem,
   editItem,
 }) => {
+  const [dopMenu, setDopMenu] = useState({menu:"search", menuMovement: 1});
+  
+
+  useEffect(() => {
+    isW && setDopMenu({menu:"search", menuMovement: 1})
+  }, [isW])
+  
+
   const isEdit = () => {
     isOpenItem && setEditItem((privState) => !privState);
   };
   const isDel = () => {
     isOpenItem && showModal();
   };
+
   return (
     <SidMain>
-      <DivPanelTol>
-        <DivPan>
+      <DivPanelTol >
+        <DivPan >
           <UlSidebar>
             <LiSidebar onClick={() => setBurger(!burger)}>
               {burger ? (
@@ -63,11 +78,30 @@ const Sidebar = ({
         </DivPan>
         {(!isW || burger) && (
           <DivPanel>
-            <SearchBox
-              setStateSearch={setStateSearch}
-              stateSearch={stateSearch}
-              isW={isW}
-            />
+            <DivMenuDop isW={isW}>
+
+              {!isW && <BuutonMenu dopMenu={dopMenu} setDopMenu={setDopMenu}/>}
+
+              {dopMenu.menu === "search" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <SearchBox
+                    setStateSearch={setStateSearch}
+                    stateSearch={stateSearch}   
+                                   
+                  />
+                </Container>
+              )}
+              {dopMenu.menu === "summary" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <SummaryBox/>
+                </Container>
+              )}
+              {dopMenu.menu === "clock" && (
+                <Container isW={isW} dopMenu={dopMenu}>
+                  <ClockBox/>
+                </Container>
+              )}          
+            </DivMenuDop>
           </DivPanel>
         )}
       </DivPanelTol>

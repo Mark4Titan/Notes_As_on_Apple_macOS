@@ -18,6 +18,7 @@ const Workspace = ({
   editItem,
   conectClouddb,
   conectdb,
+  
 }) => {
   // current state
   const [content, setContent] = useState("");
@@ -35,7 +36,7 @@ const Workspace = ({
       }
     };
 
-    let timeoutId = setTimeout(handleTimeout, 1000);
+    let timeoutId = setTimeout(handleTimeout, 800);
 
     return () => {
       clearTimeout(timeoutId);
